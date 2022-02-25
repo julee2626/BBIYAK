@@ -41,6 +41,7 @@ buck-out/
 \.buckd/
 *.keystore
 !debug.keystore
+.buckconfig
 
 # fastlane
 #
@@ -58,3 +59,12 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+
+# others
+.eslintrc.js
+.prettierrc.js
+.ruby-version
+.watchmanconfig
+.flowconfig
+.vscode
+.bundle
