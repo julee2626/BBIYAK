@@ -4,7 +4,7 @@ module.exports = {
     "@react-native-community",
     "eslint:recommended",
     "plugin:prettier/recommended",
-    // "plugin:react/recommended",
+    "plugin:react/recommended",
   ],
   rules: {
     quotes: [1, "double", "avoid-escape"],

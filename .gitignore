@@ -66,3 +66,5 @@ buck-out/
 .ruby-version
 .watchmanconfig
 .flowconfig
+.vscode
+.bundle
