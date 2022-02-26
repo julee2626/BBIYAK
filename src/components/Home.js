@@ -14,7 +14,13 @@ const HomeScreen = ({ navigation }) => {
         />
         <Text style={styles.title}>BBIYAK</Text>
         <View style={styles.button}>
-          <Button title="사진으로 검색하기" color={SUB_COLOR_2} />
+          <Button
+            title="사진으로 검색하기"
+            color={SUB_COLOR_2}
+            onPress={() => {
+              navigation.navigate("Camera");
+            }}
+          />
         </View>
         <View style={styles.button}>
           <Button
