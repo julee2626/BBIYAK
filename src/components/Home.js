@@ -1,6 +1,11 @@
 import React from "react";
-import { Button, Text, View, StyleSheet, Image } from "react-native";
-import { MAIN_COLOR_1, SUB_COLOR_1, SUB_COLOR_2 } from "../constants/styles";
+import { TouchableOpacity, Text, View, StyleSheet, Image } from "react-native";
+import {
+  MAIN_COLOR_1,
+  SUB_COLOR_1,
+  SUB_COLOR_2,
+  WHITE,
+} from "../constants/styles";
 
 const HomeScreen = ({ navigation }) => {
   return (
@@ -14,40 +19,36 @@ const HomeScreen = ({ navigation }) => {
         />
         <Text style={styles.title}>BBIYAK</Text>
         <View style={styles.button}>
-          <Button
-            title="사진으로 검색하기"
-            color={SUB_COLOR_2}
+          <TouchableOpacity
             onPress={() => {
               navigation.navigate("Camera");
-            }}
-          />
+            }}>
+            <Text style={styles.buttonTitle}>사진으로 검색하기</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.button}>
-          <Button
-            title="직접 검색하기"
-            color={SUB_COLOR_2}
+          <TouchableOpacity
             onPress={() => {
               navigation.navigate("SearchDrug");
-            }}
-          />
+            }}>
+            <Text style={styles.buttonTitle}>직접 검색하기</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.button}>
-          <Button
-            title="약 알람 맞추기"
-            color={SUB_COLOR_2}
+          <TouchableOpacity
             onPress={() => {
               navigation.navigate("Alarm");
-            }}
-          />
+            }}>
+            <Text style={styles.buttonTitle}>약 알람 맞추기</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.button}>
-          <Button
-            title="약 스케줄"
-            color={SUB_COLOR_2}
+          <TouchableOpacity
             onPress={() => {
               navigation.navigate("Weekly");
-            }}
-          />
+            }}>
+            <Text style={styles.buttonTitle}>약 스케줄</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </>
@@ -69,8 +70,16 @@ const styles = StyleSheet.create({
   },
   button: {
     width: 250,
+    height: 40,
+    borderRadius: 10,
     marginVertical: 10,
     marginHorizontal: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: SUB_COLOR_2,
+  },
+  buttonTitle: {
+    color: WHITE,
   },
   logo: {
     width: 250,
