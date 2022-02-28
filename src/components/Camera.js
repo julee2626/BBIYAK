@@ -1,15 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity, Image, View } from "react-native";
 import { useCameraDevices, Camera } from "react-native-vision-camera";
+import TextRecognition from "react-native-text-recognition";
+
 import requestCameraPermission from "../utils/cameraPermission";
+import { LIGHT_GREY_CAMERA } from "../constants/styles";
 
 const CameraScreen = () => {
   const [cameraPermission, setCameraPermission] = useState("");
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
     const result = requestCameraPermission();
     setCameraPermission(result);
   }, []);
+
+  useEffect(() => {
+    if (image) {
+      (async () => {
+        const result = await TextRecognition.recognize(image.path);
+        console.log(result);
+      })();
+    }
+  }, [image]);
 
   const cameraRef = React.useRef();
   const devices = useCameraDevices();
@@ -20,6 +33,8 @@ const CameraScreen = () => {
       const photo = await cameraRef.current.takePhoto({
         flash: "off",
       });
+
+      setImage(photo);
     } catch (err) {
       console.log(err);
     }
@@ -59,7 +74,7 @@ const styles = StyleSheet.create({
   },
   shutter: {
     height: "10%",
-    backgroundColor: "#F6F6F6",
+    backgroundColor: LIGHT_GREY_CAMERA,
     alignItems: "center",
     justifyContent: "center",
   },

@@ -4,4 +4,5 @@ module.exports = {
   SUB_COLOR_1: "#7FD1AE",
   SUB_COLOR_2: "#007561",
   WHITE: "#FFFFFF",
+  LIGHT_GREY_CAMERA: "#F6F6F6",
 };
