@@ -9,24 +9,35 @@ import { LIGHT_GREY_CAMERA } from "../constants/styles";
 const CameraScreen = () => {
   const [cameraPermission, setCameraPermission] = useState("");
   const [image, setImage] = useState(null);
+  const [ocrTextList, setOcrTextList] = useState([]);
+
+  const cameraRef = React.useRef();
+  const devices = useCameraDevices("wide-angle-camera");
+  const device = devices.back;
 
   useEffect(() => {
-    const result = requestCameraPermission();
-    setCameraPermission(result);
+    (async () => {
+      try {
+        const result = await requestCameraPermission();
+        setCameraPermission(result);
+      } catch (err) {
+        console.warn(err);
+      }
+    })();
   }, []);
 
   useEffect(() => {
-    if (image) {
-      (async () => {
-        const result = await TextRecognition.recognize(image.path);
-        console.log(result);
-      })();
-    }
+    (async () => {
+      if (image) {
+        try {
+          const result = await TextRecognition.recognize(image.path);
+          setOcrTextList(result);
+        } catch (err) {
+          console.warn(err);
+        }
+      }
+    })();
   }, [image]);
-
-  const cameraRef = React.useRef();
-  const devices = useCameraDevices();
-  const device = devices.back;
 
   const handleTouchTakePhoto = async () => {
     try {
@@ -40,26 +51,40 @@ const CameraScreen = () => {
     }
   };
 
-  if (cameraPermission._j === "granted") {
+  console.log(device);
+  if (cameraPermission === "granted") {
     return (
       <>
-        <Camera
-          ref={cameraRef}
-          style={styles.absoluteFill}
-          device={device}
-          isActive={true}
-          photo={true}
-        />
-        <View style={styles.shutter}>
-          <TouchableOpacity onPress={handleTouchTakePhoto}>
+        {image ? (
+          <View style={styles.image}>
             <Image
               style={styles.image}
               source={{
-                uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy-golqpOi-dMEpEn7Pn4nOaLUnNMzYwwC2g&usqp=CAU",
+                uri: `file://${image.path}`,
               }}
             />
-          </TouchableOpacity>
-        </View>
+          </View>
+        ) : (
+          <>
+            <Camera
+              ref={cameraRef}
+              style={styles.absoluteFill}
+              device={device}
+              isActive={true}
+              photo={true}
+            />
+            <View style={styles.shutter}>
+              <TouchableOpacity onPress={handleTouchTakePhoto}>
+                <Image
+                  style={styles.shutterImage}
+                  source={{
+                    uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy-golqpOi-dMEpEn7Pn4nOaLUnNMzYwwC2g&usqp=CAU",
+                  }}
+                />
+              </TouchableOpacity>
+            </View>
+          </>
+        )}
       </>
     );
   }
@@ -78,9 +103,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  image: {
+  shutterImage: {
     width: 60,
     height: 60,
+  },
+  image: {
+    width: "100%",
+    height: "100%",
   },
   load: {
     flex: 1,
