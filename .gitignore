@@ -68,3 +68,4 @@ buck-out/
 .flowconfig
 .vscode
 .bundle
+.env

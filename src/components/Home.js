@@ -18,32 +18,36 @@ const HomeScreen = ({ navigation }) => {
           }}
         />
         <Text style={styles.title}>BBIYAK</Text>
-        <View style={styles.button}>
+        <View>
           <TouchableOpacity
+            style={styles.button}
             onPress={() => {
               navigation.navigate("Camera");
             }}>
             <Text style={styles.buttonTitle}>사진으로 검색하기</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.button}>
+        <View>
           <TouchableOpacity
+            style={styles.button}
             onPress={() => {
               navigation.navigate("SearchDrug");
             }}>
             <Text style={styles.buttonTitle}>직접 검색하기</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.button}>
+        <View>
           <TouchableOpacity
+            style={styles.button}
             onPress={() => {
               navigation.navigate("Alarm");
             }}>
             <Text style={styles.buttonTitle}>약 알람 맞추기</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.button}>
+        <View>
           <TouchableOpacity
+            style={styles.button}
             onPress={() => {
               navigation.navigate("Weekly");
             }}>

@@ -1,50 +1,90 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity, Image, View } from "react-native";
 import { useCameraDevices, Camera } from "react-native-vision-camera";
+import TextRecognition from "react-native-text-recognition";
+
 import requestCameraPermission from "../utils/cameraPermission";
+import { LIGHT_GREY_CAMERA } from "../constants/styles";
 
 const CameraScreen = () => {
   const [cameraPermission, setCameraPermission] = useState("");
-
-  useEffect(() => {
-    const result = requestCameraPermission();
-    setCameraPermission(result);
-  }, []);
+  const [image, setImage] = useState(null);
+  const [ocrTextList, setOcrTextList] = useState([]);
 
   const cameraRef = React.useRef();
-  const devices = useCameraDevices();
+  const devices = useCameraDevices("wide-angle-camera");
   const device = devices.back;
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const result = await requestCameraPermission();
+        setCameraPermission(result);
+      } catch (err) {
+        console.warn(err);
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      if (image) {
+        try {
+          const result = await TextRecognition.recognize(image.path);
+          setOcrTextList(result);
+        } catch (err) {
+          console.warn(err);
+        }
+      }
+    })();
+  }, [image]);
 
   const handleTouchTakePhoto = async () => {
     try {
       const photo = await cameraRef.current.takePhoto({
         flash: "off",
       });
+
+      setImage(photo);
     } catch (err) {
       console.log(err);
     }
   };
 
-  if (cameraPermission._j === "granted") {
+  console.log(device);
+  if (cameraPermission === "granted") {
     return (
       <>
-        <Camera
-          ref={cameraRef}
-          style={styles.absoluteFill}
-          device={device}
-          isActive={true}
-          photo={true}
-        />
-        <View style={styles.shutter}>
-          <TouchableOpacity onPress={handleTouchTakePhoto}>
+        {image ? (
+          <View style={styles.image}>
             <Image
               style={styles.image}
               source={{
-                uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy-golqpOi-dMEpEn7Pn4nOaLUnNMzYwwC2g&usqp=CAU",
+                uri: `file://${image.path}`,
               }}
             />
-          </TouchableOpacity>
-        </View>
+          </View>
+        ) : (
+          <>
+            <Camera
+              ref={cameraRef}
+              style={styles.absoluteFill}
+              device={device}
+              isActive={true}
+              photo={true}
+            />
+            <View style={styles.shutter}>
+              <TouchableOpacity onPress={handleTouchTakePhoto}>
+                <Image
+                  style={styles.shutterImage}
+                  source={{
+                    uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy-golqpOi-dMEpEn7Pn4nOaLUnNMzYwwC2g&usqp=CAU",
+                  }}
+                />
+              </TouchableOpacity>
+            </View>
+          </>
+        )}
       </>
     );
   }
@@ -59,13 +99,17 @@ const styles = StyleSheet.create({
   },
   shutter: {
     height: "10%",
-    backgroundColor: "#F6F6F6",
+    backgroundColor: LIGHT_GREY_CAMERA,
     alignItems: "center",
     justifyContent: "center",
   },
-  image: {
+  shutterImage: {
     width: 60,
     height: 60,
+  },
+  image: {
+    width: "100%",
+    height: "100%",
   },
   load: {
     flex: 1,
