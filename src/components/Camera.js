@@ -12,8 +12,13 @@ const CameraScreen = () => {
   const [ocrTextList, setOcrTextList] = useState([]);
 
   const cameraRef = React.useRef();
-  const devices = useCameraDevices("wide-angle-camera");
+  const devices = useCameraDevices();
   const device = devices.back;
+  // (async () => {
+  //   const devices = await Camera.getAvailableCameraDevices();
+  //   console.log(devices);
+  // })();
+  console.log(devices);
 
   useEffect(() => {
     (async () => {
@@ -51,7 +56,6 @@ const CameraScreen = () => {
     }
   };
 
-  console.log(device);
   if (cameraPermission === "granted") {
     return (
       <>
@@ -66,13 +70,13 @@ const CameraScreen = () => {
           </View>
         ) : (
           <>
-            <Camera
+            {/* <Camera
               ref={cameraRef}
               style={styles.absoluteFill}
               device={device}
               isActive={true}
               photo={true}
-            />
+            /> */}
             <View style={styles.shutter}>
               <TouchableOpacity onPress={handleTouchTakePhoto}>
                 <Image
