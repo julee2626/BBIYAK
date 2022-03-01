@@ -7,9 +7,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
+import { useDispatch } from "react-redux";
 
 import { MAIN_COLOR_1, SUB_COLOR_2, WHITE } from "../constants/styles";
 import { formulationData, shapeData, colorData } from "../utils/selectData";
+import { searchDrugInfo } from "../features";
+import DrugInfo from "./DrugInfo";
 
 const SearchDrugScreen = () => {
   const [identificationLetter, setIdentificationLetter] = useState(null);
@@ -17,6 +20,8 @@ const SearchDrugScreen = () => {
   const [shape, setShape] = useState("전체");
   const [color, setColor] = useState("전체");
   const [name, setName] = useState(null);
+  const [resultToggle, setResultToggle] = useState(false);
+  const dispatch = useDispatch();
 
   const handlePressGetSearchInfo = () => {
     const searchInfo = {
@@ -27,10 +32,11 @@ const SearchDrugScreen = () => {
       name,
     };
 
-    console.log(searchInfo);
+    dispatch(searchDrugInfo(searchInfo));
+    setResultToggle(true);
   };
 
-  return (
+  return !resultToggle ? (
     <>
       <View style={styles.container}>
         <Text style={styles.title}>식별 정보 입력</Text>
@@ -86,6 +92,8 @@ const SearchDrugScreen = () => {
         </View>
       </View>
     </>
+  ) : (
+    <DrugInfo />
   );
 };
 
