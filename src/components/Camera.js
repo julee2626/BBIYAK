@@ -2,17 +2,22 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity, Image, View } from "react-native";
 import { useCameraDevices, Camera } from "react-native-vision-camera";
 import TextRecognition from "react-native-text-recognition";
+import { useDispatch } from "react-redux";
 
 import requestCameraPermission from "../utils/cameraPermission";
 import { LIGHT_GREY_CAMERA } from "../constants/styles";
+import { searchDrugInfo } from "../features";
+import DrugInfo from "./DrugInfo";
 
 const CameraScreen = () => {
   const [cameraPermission, setCameraPermission] = useState("");
   const [image, setImage] = useState(null);
   const [ocrTextList, setOcrTextList] = useState([]);
+  const [resultToggle, setResultToggle] = useState(false);
+  const dispatch = useDispatch();
 
   const cameraRef = React.useRef();
-  const devices = useCameraDevices("wide-angle-camera");
+  const devices = useCameraDevices();
   const device = devices.back;
 
   useEffect(() => {
@@ -39,6 +44,21 @@ const CameraScreen = () => {
     })();
   }, [image]);
 
+  useEffect(() => {
+    if (ocrTextList.length) {
+      const searchInfo = {
+        identificationLetter: ocrTextList[0],
+        formulation: "",
+        shape: "",
+        color: "",
+        name: "",
+      };
+
+      dispatch(searchDrugInfo(searchInfo));
+      setResultToggle(true);
+    }
+  }, [ocrTextList]);
+
   const handleTouchTakePhoto = async () => {
     try {
       const photo = await cameraRef.current.takePhoto({
@@ -51,8 +71,11 @@ const CameraScreen = () => {
     }
   };
 
-  console.log(device);
-  if (cameraPermission === "granted") {
+  if (resultToggle) {
+    return <DrugInfo />;
+  }
+
+  if (cameraPermission === "granted" && device != null) {
     return (
       <>
         {image ? (
@@ -72,6 +95,7 @@ const CameraScreen = () => {
               device={device}
               isActive={true}
               photo={true}
+              orientation="portrait"
             />
             <View style={styles.shutter}>
               <TouchableOpacity onPress={handleTouchTakePhoto}>
@@ -88,6 +112,7 @@ const CameraScreen = () => {
       </>
     );
   }
+
   return <View style={styles.load} />;
 };
 
