@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     backgroundColor: SUB_COLOR_2,
   },
   buttonTitle: {
-    color: WHITE,
+    color: MAIN_COLOR_1,
   },
   logo: {
     width: 250,

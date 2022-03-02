@@ -7,13 +7,11 @@ import { useDispatch } from "react-redux";
 import requestCameraPermission from "../utils/cameraPermission";
 import { LIGHT_GREY_CAMERA } from "../constants/styles";
 import { searchDrugInfo } from "../features";
-import DrugInfo from "./DrugInfo";
 
-const CameraScreen = () => {
+const CameraScreen = ({ navigation }) => {
   const [cameraPermission, setCameraPermission] = useState("");
   const [image, setImage] = useState(null);
   const [ocrTextList, setOcrTextList] = useState([]);
-  const [resultToggle, setResultToggle] = useState(false);
   const dispatch = useDispatch();
 
   const cameraRef = React.useRef();
@@ -55,7 +53,7 @@ const CameraScreen = () => {
       };
 
       dispatch(searchDrugInfo(searchInfo));
-      setResultToggle(true);
+      navigation.navigate("DrugInfo");
     }
   }, [ocrTextList]);
 
@@ -70,10 +68,6 @@ const CameraScreen = () => {
       console.log(err);
     }
   };
-
-  if (resultToggle) {
-    return <DrugInfo />;
-  }
 
   if (cameraPermission === "granted" && device != null) {
     return (
