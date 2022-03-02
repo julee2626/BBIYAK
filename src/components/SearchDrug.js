@@ -12,15 +12,13 @@ import { useDispatch } from "react-redux";
 import { MAIN_COLOR_1, SUB_COLOR_2, WHITE } from "../constants/styles";
 import { formulationData, shapeData, colorData } from "../utils/selectData";
 import { searchDrugInfo } from "../features";
-import DrugInfo from "./DrugInfo";
 
-const SearchDrugScreen = () => {
+const SearchDrugScreen = ({ navigation }) => {
   const [identificationLetter, setIdentificationLetter] = useState(null);
   const [formulation, setFormulation] = useState("전체");
   const [shape, setShape] = useState("전체");
   const [color, setColor] = useState("전체");
   const [name, setName] = useState(null);
-  const [resultToggle, setResultToggle] = useState(false);
   const dispatch = useDispatch();
 
   const handlePressGetSearchInfo = () => {
@@ -33,10 +31,10 @@ const SearchDrugScreen = () => {
     };
 
     dispatch(searchDrugInfo(searchInfo));
-    setResultToggle(true);
+    navigation.navigate("DrugInfo");
   };
 
-  return !resultToggle ? (
+  return (
     <>
       <View style={styles.container}>
         <Text style={styles.title}>식별 정보 입력</Text>
@@ -92,8 +90,6 @@ const SearchDrugScreen = () => {
         </View>
       </View>
     </>
-  ) : (
-    <DrugInfo />
   );
 };
 

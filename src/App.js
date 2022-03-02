@@ -7,6 +7,7 @@ import SearchDrugScreen from "./components/SearchDrug";
 import AlarmScreen from "./components/Alarm";
 import WeeklyScreen from "./components/Weekly";
 import CameraScreen from "./components/Camera";
+import DrugInfoScreen from "./components/DrugInfo";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +20,7 @@ const App = () => {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Camera" component={CameraScreen} />
         <Stack.Screen name="SearchDrug" component={SearchDrugScreen} />
+        <Stack.Screen name="DrugInfo" component={DrugInfoScreen} />
         <Stack.Screen name="Alarm" component={AlarmScreen} />
         <Stack.Screen name="Weekly" component={WeeklyScreen} />
       </Stack.Navigator>

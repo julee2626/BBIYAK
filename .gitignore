@@ -61,11 +61,8 @@ buck-out/
 /ios/Pods/
 
 # others
-.eslintrc.js
-.prettierrc.js
 .ruby-version
 .watchmanconfig
 .flowconfig
 .vscode
 .bundle
-.env
