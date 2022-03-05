@@ -10,7 +10,7 @@ import SelectDropdown from "react-native-select-dropdown";
 import { useDispatch } from "react-redux";
 
 import { MAIN_COLOR_1, SUB_COLOR_2, WHITE } from "../constants/styles";
-import { formulationData, shapeData, colorData } from "../utils/selectData";
+import { formulationData, shapeData, colorData } from "../data/searchData";
 import { searchDrugInfo } from "../features";
 
 const SearchDrugScreen = ({ navigation }) => {

@@ -9,7 +9,7 @@ import WeeklyScreen from "./components/Weekly";
 import CameraScreen from "./components/Camera";
 import DrugInfoScreen from "./components/DrugInfo";
 import Notifications from "./utils/notification";
-import { dayString } from "./utils/date";
+import { dayString } from "./data/dateData";
 
 const Stack = createNativeStackNavigator();
 
