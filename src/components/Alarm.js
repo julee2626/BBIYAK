@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import {
   View,
   Text,
@@ -10,13 +9,7 @@ import {
 import DatePicker from "react-native-date-picker";
 
 import Notifications from "../utils/notification";
-import {
-  MAIN_COLOR_1,
-  MAIN_COLOR_2,
-  SUB_COLOR_1,
-  SUB_COLOR_2,
-  WHITE,
-} from "../constants/styles";
+import { MAIN_COLOR_1, MAIN_COLOR_2, SUB_COLOR_2 } from "../constants/styles";
 
 const AlarmScreen = ({ navigation }) => {
   const [date, setDate] = useState(new Date());
