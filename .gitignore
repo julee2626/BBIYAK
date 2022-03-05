@@ -66,3 +66,5 @@ buck-out/
 .flowconfig
 .vscode
 .bundle
+Gemfile
+Gemfile.lock

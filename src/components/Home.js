@@ -1,11 +1,6 @@
 import React from "react";
 import { TouchableOpacity, Text, View, StyleSheet, Image } from "react-native";
-import {
-  MAIN_COLOR_1,
-  SUB_COLOR_1,
-  SUB_COLOR_2,
-  WHITE,
-} from "../constants/styles";
+import { MAIN_COLOR_1, SUB_COLOR_1, SUB_COLOR_2 } from "../constants/styles";
 
 const HomeScreen = ({ navigation }) => {
   return (

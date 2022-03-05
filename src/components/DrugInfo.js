@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Text, StyleSheet, View, Image, ScrollView, Dimensions, TouchableOpacity } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  Image,
+  ScrollView,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
 import { useSelector } from "react-redux";
 
-import { MAIN_COLOR_1, SUB_COLOR_2, WHITE } from "../constants/styles";
+import { MAIN_COLOR_1, SUB_COLOR_2 } from "../constants/styles";
 const identificationData = require("../data/drugIdentification.json");
 const drugData = require("../data/drugInfo.json");
-const win = Dimensions.get('window');
+const win = Dimensions.get("window");
 
 const DrugInfoScreen = ({ navigation }) => {
   const searchDrugInfo = useSelector(state => state.drug.drugInfo);
@@ -35,14 +43,16 @@ const DrugInfoScreen = ({ navigation }) => {
     }
   }, [identifiedDrug]);
 
-  return (drug ?
+  return drug ? (
     <>
       <ScrollView style={styles.container}>
         <Text style={styles.title}>검색 결과</Text>
-        <Image style={styles.drugImage}
+        <Image
+          style={styles.drugImage}
           source={{
             uri: identifiedDrug.큰제품이미지,
-          }} />
+          }}
+        />
         <View style={styles.category}>
           <Text style={styles.categoryTitle}>{drug.업체명}</Text>
         </View>
@@ -51,19 +61,27 @@ const DrugInfoScreen = ({ navigation }) => {
         </View>
         <View style={styles.category}>
           <Text style={styles.categoryTitle}>효능</Text>
-          <Text style={styles.categoryContent}>{drug["이 약의 효능은 무엇입니까?"]}</Text>
+          <Text style={styles.categoryContent}>
+            {drug["이 약의 효능은 무엇입니까?"]}
+          </Text>
         </View>
         <View style={styles.category}>
           <Text style={styles.categoryTitle}>사용법</Text>
-          <Text style={styles.categoryContent}>{drug["이 약은 어떻게 사용합니까?"]}</Text>
+          <Text style={styles.categoryContent}>
+            {drug["이 약은 어떻게 사용합니까?"]}
+          </Text>
         </View>
         <View style={styles.category}>
           <Text style={styles.categoryTitle}>주의사항</Text>
-          <Text style={styles.categoryContent}>{drug["이 약의 사용상 주의사항은 무엇입니까?"]}</Text>
+          <Text style={styles.categoryContent}>
+            {drug["이 약의 사용상 주의사항은 무엇입니까?"]}
+          </Text>
         </View>
         <View style={styles.category}>
           <Text style={styles.categoryTitle}>보관방법</Text>
-          <Text style={styles.categoryContent}>{drug["이 약은 어떻게 보관해야 합니까?"]}</Text>
+          <Text style={styles.categoryContent}>
+            {drug["이 약은 어떻게 보관해야 합니까?"]}
+          </Text>
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
@@ -82,7 +100,9 @@ const DrugInfoScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </ScrollView>
-    </> : <Text>찾는 약의 정보가 없습니다</Text>
+    </>
+  ) : (
+    <Text>찾는 약의 정보가 없습니다</Text>
   );
 };
 
