@@ -2,11 +2,11 @@ import { SEARCH_DRUG_INFO } from "./types";
 
 const initialState = {
   drugInfo: {
-    identificationLetter: "",
+    identificationLetter: null,
     formulation: "",
     shape: "",
     color: "",
-    name: "",
+    name: null,
   },
 };
 
