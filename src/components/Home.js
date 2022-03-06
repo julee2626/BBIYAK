@@ -44,7 +44,7 @@ const HomeScreen = ({ navigation }) => {
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
-              navigation.navigate("Weekly");
+              navigation.navigate("MyAlarm");
             }}>
             <Text style={styles.buttonTitle}>약 스케줄</Text>
           </TouchableOpacity>
