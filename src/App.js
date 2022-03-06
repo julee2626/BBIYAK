@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./components/Home";
 import SearchDrugScreen from "./components/SearchDrug";
 import AlarmScreen from "./components/Alarm";
-import WeeklyScreen from "./components/Weekly";
+import MyAlarmScreen from "./components/MyAlarm";
 import CameraScreen from "./components/Camera";
 import DrugInfoScreen from "./components/DrugInfo";
 import Notifications from "./utils/notification";
@@ -45,7 +45,7 @@ const App = () => {
         <Stack.Screen name="SearchDrug" component={SearchDrugScreen} />
         <Stack.Screen name="DrugInfo" component={DrugInfoScreen} />
         <Stack.Screen name="Alarm" component={AlarmScreen} />
-        <Stack.Screen name="Weekly" component={WeeklyScreen} />
+        <Stack.Screen name="MyAlarm" component={MyAlarmScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
