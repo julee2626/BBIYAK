@@ -5,8 +5,8 @@ import TextRecognition from "react-native-text-recognition";
 import { useDispatch } from "react-redux";
 
 import requestCameraPermission from "../utils/cameraPermission";
-import { LIGHT_GREY_CAMERA } from "../constants/styles";
 import { searchDrugInfo } from "../features";
+import { BLACK } from "../constants/styles";
 
 const CameraScreen = ({ navigation }) => {
   const [cameraPermission, setCameraPermission] = useState("");
@@ -95,9 +95,7 @@ const CameraScreen = ({ navigation }) => {
               <TouchableOpacity onPress={handleTouchTakePhoto}>
                 <Image
                   style={styles.shutterImage}
-                  source={{
-                    uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy-golqpOi-dMEpEn7Pn4nOaLUnNMzYwwC2g&usqp=CAU",
-                  }}
+                  source={require("../assets/images/camera.png")}
                 />
               </TouchableOpacity>
             </View>
@@ -118,7 +116,7 @@ const styles = StyleSheet.create({
   },
   shutter: {
     height: "10%",
-    backgroundColor: LIGHT_GREY_CAMERA,
+    backgroundColor: BLACK,
     alignItems: "center",
     justifyContent: "center",
   },

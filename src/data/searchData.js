@@ -1,5 +1,6 @@
-export const formulationData = ["정제", "연질캡슐", "경질캡슐", "전체"];
+export const formulationData = ["전체", "정제", "연질캡슐", "경질캡슐"];
 export const shapeData = [
+  "전체",
   "원형",
   "타원형",
   "장방형",
@@ -10,9 +11,9 @@ export const shapeData = [
   "오각형",
   "육각형",
   "팔각형",
-  "전체",
 ];
 export const colorData = [
+  "전체",
   "빨강",
   "주황",
   "노랑",
@@ -29,5 +30,4 @@ export const colorData = [
   "회색",
   "검정",
   "투명",
-  "전체",
 ];

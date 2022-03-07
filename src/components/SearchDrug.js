@@ -9,7 +9,13 @@ import {
 import SelectDropdown from "react-native-select-dropdown";
 import { useDispatch } from "react-redux";
 
-import { MAIN_COLOR_1, SUB_COLOR_2, WHITE } from "../constants/styles";
+import {
+  MAIN_COLOR_1,
+  SUB_COLOR_1,
+  SUB_COLOR_2,
+  SUB_COLOR_4,
+  WHITE,
+} from "../constants/styles";
 import { formulationData, shapeData, colorData } from "../data/searchData";
 import { searchDrugInfo } from "../features";
 
@@ -38,50 +44,60 @@ const SearchDrugScreen = ({ navigation }) => {
     <>
       <View style={styles.container}>
         <Text style={styles.title}>식별 정보 입력</Text>
-        <View style={styles.category}>
-          <Text style={styles.categoryTitle}>식별문자</Text>
-          <TextInput
-            style={styles.textInput}
-            placeholder="식별문자를 입력해주세요"
-            onChangeText={text => setIdentificationLetter(text)}
-          />
+        <View style={styles.elevation}>
+          <View style={[styles.category, { marginTop: 20 }]}>
+            <Text style={styles.categoryTitle}>식별문자</Text>
+            <TextInput
+              style={styles.textInput}
+              placeholder="식별문자를 입력해주세요"
+              onChangeText={text => setIdentificationLetter(text)}
+              underlineColorAndroid={SUB_COLOR_1}
+            />
+          </View>
+          <View style={styles.category}>
+            <Text style={styles.categoryTitle}>제품명</Text>
+            <TextInput
+              style={styles.textInput}
+              placeholder="제품명을 입력해주세요"
+              onChangeText={text => setName(text)}
+              underlineColorAndroid={SUB_COLOR_1}
+            />
+          </View>
+          <View style={styles.category}>
+            <Text style={styles.categoryTitle}>제형</Text>
+            <SelectDropdown
+              data={formulationData}
+              defaultValue="전체"
+              onSelect={selectedItem => setFormulation(selectedItem)}
+              buttonStyle={styles.select}
+              buttonTextStyle={styles.selectText}
+              rowTextStyle={styles.selectText}
+            />
+          </View>
+          <View style={styles.category}>
+            <Text style={styles.categoryTitle}>모양</Text>
+            <SelectDropdown
+              data={shapeData}
+              defaultValue="전체"
+              onSelect={selectedItem => setShape(selectedItem)}
+              buttonStyle={styles.select}
+              buttonTextStyle={styles.selectText}
+              rowTextStyle={styles.selectText}
+            />
+          </View>
+          <View style={[styles.category, { marginBottom: 20 }]}>
+            <Text style={styles.categoryTitle}>색상</Text>
+            <SelectDropdown
+              data={colorData}
+              defaultValue="전체"
+              onSelect={selectedItem => setColor(selectedItem)}
+              buttonStyle={styles.select}
+              buttonTextStyle={styles.selectText}
+              rowTextStyle={styles.selectText}
+            />
+          </View>
         </View>
-        <View style={styles.category}>
-          <Text style={styles.categoryTitle}>제형</Text>
-          <SelectDropdown
-            data={formulationData}
-            defaultButtonText="제형을 선택해주세요"
-            onSelect={selectedItem => setFormulation(selectedItem)}
-            buttonStyle={styles.select}
-          />
-        </View>
-        <View style={styles.category}>
-          <Text style={styles.categoryTitle}>모양</Text>
-          <SelectDropdown
-            data={shapeData}
-            defaultButtonText="모양을 선택해주세요"
-            onSelect={selectedItem => setShape(selectedItem)}
-            buttonStyle={styles.select}
-          />
-        </View>
-        <View style={styles.category}>
-          <Text style={styles.categoryTitle}>색상</Text>
-          <SelectDropdown
-            data={colorData}
-            defaultButtonText="색상을 선택해주세요"
-            onSelect={selectedItem => setColor(selectedItem)}
-            buttonStyle={styles.select}
-          />
-        </View>
-        <View style={styles.category}>
-          <Text style={styles.categoryTitle}>제품명</Text>
-          <TextInput
-            style={styles.textInput}
-            placeholder="제품명을 입력해주세요"
-            onChangeText={text => setName(text)}
-          />
-        </View>
-        <View style={styles.category}>
+        <View style={[styles.category, { marginVertical: 10 }]}>
           <TouchableOpacity
             style={styles.button}
             onPress={handlePressGetSearchInfo}>
@@ -102,15 +118,21 @@ const styles = StyleSheet.create({
   title: {
     marginVertical: 20,
     color: SUB_COLOR_2,
-    fontWeight: "bold",
-    fontSize: 30,
+    fontFamily: "Dongle-Bold",
+    fontSize: 50,
     textAlign: "center",
+  },
+  elevation: {
+    flex: 5,
+    width: "90%",
+    borderRadius: 10,
+    elevation: 3,
+    backgroundColor: WHITE,
   },
   category: {
     flex: 1,
     flexDirection: "row",
     width: "100%",
-    backgroundColor: MAIN_COLOR_1,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -118,25 +140,37 @@ const styles = StyleSheet.create({
     width: "20%",
     marginRight: "8%",
     textAlign: "center",
-    fontSize: 18,
+    fontFamily: "Dongle-Bold",
+    fontSize: 30,
     color: SUB_COLOR_2,
   },
   select: {
     width: "60%",
-    backgroundColor: MAIN_COLOR_1,
+    backgroundColor: WHITE,
+  },
+  selectText: {
+    fontFamily: "Dongle-Regular",
+    fontSize: 30,
+    color: SUB_COLOR_1,
   },
   textInput: {
     width: "60%",
+    fontFamily: "Dongle-Regular",
+    color: SUB_COLOR_1,
+    fontSize: 30,
   },
   button: {
-    width: "50%",
-    height: "40%",
-    backgroundColor: SUB_COLOR_2,
+    width: "30%",
+    height: "80%",
+    backgroundColor: SUB_COLOR_4,
+    borderRadius: 10,
+    elevation: 3,
     justifyContent: "center",
     alignItems: "center",
   },
   buttonTitle: {
-    fontSize: 20,
+    fontFamily: "Dongle-Bold",
+    fontSize: 40,
     color: WHITE,
   },
 });
