@@ -12,6 +12,9 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		768EFD8E9F874CB9A12CA66B /* Dongle-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 855843CB0A65437C94671C22 /* Dongle-Bold.ttf */; };
+		9F39DF2F8F16426881F4EA21 /* Dongle-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E5D83633D344CF988080E14 /* Dongle-Light.ttf */; };
+		BFC6D0C2CAD94AE599FD364D /* Dongle-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A18983E9FB824E2699D81025 /* Dongle-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +39,9 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = bbiyak/main.m; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = bbiyak/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		855843CB0A65437C94671C22 /* Dongle-Bold.ttf */ = {isa = PBXFileReference; name = "Dongle-Bold.ttf"; path = "../src/assets/fonts/Dongle-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3E5D83633D344CF988080E14 /* Dongle-Light.ttf */ = {isa = PBXFileReference; name = "Dongle-Light.ttf"; path = "../src/assets/fonts/Dongle-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A18983E9FB824E2699D81025 /* Dongle-Regular.ttf */ = {isa = PBXFileReference; name = "Dongle-Regular.ttf"; path = "../src/assets/fonts/Dongle-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +115,7 @@
 				00E356EF1AD99517003FC87E /* bbiyakTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
+				56D9F27D29034AA9BA020626 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -123,6 +130,17 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		56D9F27D29034AA9BA020626 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				855843CB0A65437C94671C22 /* Dongle-Bold.ttf */,
+				3E5D83633D344CF988080E14 /* Dongle-Light.ttf */,
+				A18983E9FB824E2699D81025 /* Dongle-Regular.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -214,6 +232,9 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				768EFD8E9F874CB9A12CA66B /* Dongle-Bold.ttf in Resources */,
+				9F39DF2F8F16426881F4EA21 /* Dongle-Light.ttf in Resources */,
+				BFC6D0C2CAD94AE599FD364D /* Dongle-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

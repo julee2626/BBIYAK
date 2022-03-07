@@ -1,6 +1,11 @@
 import React from "react";
 import { TouchableOpacity, Text, View, StyleSheet, Image } from "react-native";
-import { MAIN_COLOR_1, SUB_COLOR_1, SUB_COLOR_2 } from "../constants/styles";
+import {
+  MAIN_COLOR_1,
+  SUB_COLOR_1,
+  SUB_COLOR_2,
+  WHITE,
+} from "../constants/styles";
 
 const HomeScreen = ({ navigation }) => {
   return (
@@ -8,9 +13,7 @@ const HomeScreen = ({ navigation }) => {
       <View style={styles.container}>
         <Image
           style={styles.logo}
-          source={{
-            uri: "https://cdn.dribbble.com/users/3491724/screenshots/11056357/media/55c05692b649a784db3eaa43010f85e4.jpg?compress=1&resize=1200x900&vertical=top",
-          }}
+          source={require("../assets/images/chick_1.png")}
         />
         <Text style={styles.title}>BBIYAK</Text>
         <View>
@@ -19,7 +22,7 @@ const HomeScreen = ({ navigation }) => {
             onPress={() => {
               navigation.navigate("Camera");
             }}>
-            <Text style={styles.buttonTitle}>사진으로 검색하기</Text>
+            <Text style={styles.buttonTitle}>사진으로 검색</Text>
           </TouchableOpacity>
         </View>
         <View>
@@ -28,7 +31,7 @@ const HomeScreen = ({ navigation }) => {
             onPress={() => {
               navigation.navigate("SearchDrug");
             }}>
-            <Text style={styles.buttonTitle}>직접 검색하기</Text>
+            <Text style={styles.buttonTitle}>직접 검색</Text>
           </TouchableOpacity>
         </View>
         <View>
@@ -46,7 +49,7 @@ const HomeScreen = ({ navigation }) => {
             onPress={() => {
               navigation.navigate("MyAlarm");
             }}>
-            <Text style={styles.buttonTitle}>약 스케줄</Text>
+            <Text style={styles.buttonTitle}>알람 확인하기</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -61,10 +64,9 @@ const styles = StyleSheet.create({
     backgroundColor: MAIN_COLOR_1,
   },
   title: {
-    marginVertical: 40,
+    fontFamily: "Dongle-Bold",
     color: SUB_COLOR_1,
-    fontWeight: "bold",
-    fontSize: 50,
+    fontSize: 150,
     textAlign: "center",
   },
   button: {
@@ -76,13 +78,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: SUB_COLOR_2,
+    elevation: 5,
   },
   buttonTitle: {
-    color: MAIN_COLOR_1,
+    color: WHITE,
+    fontFamily: "Dongle-Regular",
+    fontSize: 30,
   },
   logo: {
-    width: 250,
-    height: 250,
+    marginTop: 50,
+    marginBottom: 20,
+    width: 200,
+    height: 200,
   },
 });
 
