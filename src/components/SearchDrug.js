@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Alert } from "react-native";
 import {
   Text,
   StyleSheet,
@@ -8,6 +9,7 @@ import {
 } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 import { useDispatch } from "react-redux";
+import { ERROR_SEARCH_NO_FILTER } from "../constants/messages";
 
 import {
   MAIN_COLOR_1,
@@ -28,6 +30,17 @@ const SearchDrugScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const handlePressGetSearchInfo = () => {
+    if (
+      (identificationLetter === "" || identificationLetter === null) &&
+      (name === "" || name === null) &&
+      formulation === "전체" &&
+      shape === "전체" &&
+      color === "전체"
+    ) {
+      Alert.alert(ERROR_SEARCH_NO_FILTER);
+      return;
+    }
+
     const searchInfo = {
       identificationLetter,
       formulation,

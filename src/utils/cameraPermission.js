@@ -1,4 +1,5 @@
-import { PermissionsAndroid } from "react-native";
+import { PermissionsAndroid, Alert } from "react-native";
+import { ERROR_MESSAGE_CAMERA_PERMISSION } from "../constants/messages";
 
 const requestCameraPermission = async () => {
   try {
@@ -20,7 +21,7 @@ const requestCameraPermission = async () => {
       return "denied";
     }
   } catch (err) {
-    console.warn(err);
+    Alert.alert(ERROR_MESSAGE_CAMERA_PERMISSION);
   }
 };
 
