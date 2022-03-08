@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   TextInput,
+  Alert,
 } from "react-native";
 import DatePicker from "react-native-date-picker";
 
@@ -17,7 +18,6 @@ import {
   SUB_COLOR_4,
   WHITE,
 } from "../constants/styles";
-import { Alert } from "react-native";
 
 const AlarmScreen = ({ navigation }) => {
   const [date, setDate] = useState(new Date());
@@ -35,7 +35,9 @@ const AlarmScreen = ({ navigation }) => {
   const handlePressSetNotification = () => {
     if (drugName === "" || drugName === null) {
       Alert.alert("약 이름을 입력해주세요");
+      return;
     }
+
     Notifications.scheduleNotification(date, day, drugName);
     navigation.navigate("Home");
   };

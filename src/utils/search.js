@@ -20,7 +20,7 @@ export const searchDrug = searchDrugInfo => {
     ).filter(data => data.품목명.includes(searchDrugInfo.name));
   }
 
-  if (searchDrugInfo.color !== "전체") {
+  if (searchDrugInfo.color !== "전체" && searchDrugInfo.color !== "") {
     filteredDrugList = (
       filteredDrugList !== null ? filteredDrugList : identificationData
     ).filter(
@@ -30,13 +30,16 @@ export const searchDrug = searchDrugInfo => {
     );
   }
 
-  if (searchDrugInfo.shape !== "전체") {
+  if (searchDrugInfo.shape !== "전체" && searchDrugInfo.shape !== "") {
     filteredDrugList = (
       filteredDrugList !== null ? filteredDrugList : identificationData
     ).filter(data => data.의약품제형 === searchDrugInfo.shape);
   }
 
-  if (searchDrugInfo.formulation !== "전체") {
+  if (
+    searchDrugInfo.formulation !== "전체" &&
+    searchDrugInfo.formulation !== ""
+  ) {
     filteredDrugList = (
       filteredDrugList !== null ? filteredDrugList : identificationData
     ).filter(data => data.성상.includes(searchDrugInfo.formulation));

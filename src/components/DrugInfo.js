@@ -30,7 +30,7 @@ const DrugInfoScreen = ({ navigation }) => {
     const filteredDrugList = searchDrug(searchDrugInfo);
 
     setIdentifiedDrug(filteredDrugList);
-  }, []);
+  }, [searchDrugInfo]);
 
   useEffect(() => {
     if (identifiedDrug !== null) {
@@ -62,7 +62,7 @@ const DrugInfoScreen = ({ navigation }) => {
         </View>
       </ScrollView>
     );
-  console.log(drugList);
+
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>검색 결과</Text>

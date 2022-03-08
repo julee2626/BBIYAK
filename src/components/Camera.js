@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, TouchableOpacity, Image, View } from "react-native";
+import { useDispatch } from "react-redux";
+import { StyleSheet, TouchableOpacity, Image, View, Alert } from "react-native";
 import { useCameraDevices, Camera } from "react-native-vision-camera";
 import TextRecognition from "react-native-text-recognition";
-import { useDispatch } from "react-redux";
 
 import requestCameraPermission from "../utils/cameraPermission";
 import { searchDrugInfo } from "../features";
 import { BLACK } from "../constants/styles";
+import {
+  ERROR_MESSAGE_CAMERA_PERMISSION,
+  ERROR_MESSAGE_TAKE_PHOTO,
+  ERROR_MESSAGE_TEXT_RECOGNITION,
+} from "../constants/messages";
 
 const CameraScreen = ({ navigation }) => {
   const [cameraPermission, setCameraPermission] = useState("");
   const [image, setImage] = useState(null);
-  const [ocrTextList, setOcrTextList] = useState([]);
   const dispatch = useDispatch();
 
   const cameraRef = React.useRef();
@@ -24,38 +28,40 @@ const CameraScreen = ({ navigation }) => {
         const result = await requestCameraPermission();
         setCameraPermission(result);
       } catch (err) {
-        console.warn(err);
+        Alert.alert(ERROR_MESSAGE_CAMERA_PERMISSION);
       }
     })();
   }, []);
 
   useEffect(() => {
-    (async () => {
-      if (image) {
+    if (image) {
+      (async () => {
         try {
           const result = await TextRecognition.recognize(image.path);
-          setOcrTextList(result);
+
+          if (!result.length) {
+            Alert.alert("글씨를 인식하지 못했습니다.");
+            return;
+          }
+
+          if (result.length) {
+            const searchInfo = {
+              identificationLetter: result[0],
+              formulation: "",
+              shape: "",
+              color: "",
+              name: "",
+            };
+
+            dispatch(searchDrugInfo(searchInfo));
+            navigation.navigate("DrugInfo");
+          }
         } catch (err) {
-          console.warn(err);
+          Alert.alert(ERROR_MESSAGE_TEXT_RECOGNITION);
         }
-      }
-    })();
-  }, [image]);
-
-  useEffect(() => {
-    if (ocrTextList.length) {
-      const searchInfo = {
-        identificationLetter: ocrTextList[0],
-        formulation: "",
-        shape: "",
-        color: "",
-        name: "",
-      };
-
-      dispatch(searchDrugInfo(searchInfo));
-      navigation.navigate("DrugInfo");
+      })();
     }
-  }, [ocrTextList]);
+  }, [dispatch, image, navigation]);
 
   const handleTouchTakePhoto = async () => {
     try {
@@ -65,42 +71,29 @@ const CameraScreen = ({ navigation }) => {
 
       setImage(photo);
     } catch (err) {
-      console.log(err);
+      Alert.alert(ERROR_MESSAGE_TAKE_PHOTO);
     }
   };
 
   if (cameraPermission === "granted" && device != null) {
     return (
       <>
-        {image ? (
-          <View style={styles.image}>
+        <Camera
+          ref={cameraRef}
+          style={styles.absoluteFill}
+          device={device}
+          isActive={true}
+          photo={true}
+          orientation="portrait"
+        />
+        <View style={styles.shutter}>
+          <TouchableOpacity onPress={handleTouchTakePhoto}>
             <Image
-              style={styles.image}
-              source={{
-                uri: `file://${image.path}`,
-              }}
+              style={styles.shutterImage}
+              source={require("../assets/images/camera.png")}
             />
-          </View>
-        ) : (
-          <>
-            <Camera
-              ref={cameraRef}
-              style={styles.absoluteFill}
-              device={device}
-              isActive={true}
-              photo={true}
-              orientation="portrait"
-            />
-            <View style={styles.shutter}>
-              <TouchableOpacity onPress={handleTouchTakePhoto}>
-                <Image
-                  style={styles.shutterImage}
-                  source={require("../assets/images/camera.png")}
-                />
-              </TouchableOpacity>
-            </View>
-          </>
-        )}
+          </TouchableOpacity>
+        </View>
       </>
     );
   }
