@@ -18,6 +18,7 @@ import {
   SUB_COLOR_4,
   WHITE,
 } from "../constants/styles";
+import { ALARM_PLACE_HOLDER, ALARM_TITLE } from "../constants/texts";
 
 const AlarmScreen = ({ navigation }) => {
   const [date, setDate] = useState(new Date());
@@ -34,7 +35,12 @@ const AlarmScreen = ({ navigation }) => {
 
   const handlePressSetNotification = () => {
     if (drugName === "" || drugName === null) {
-      Alert.alert("약 이름을 입력해주세요");
+      Alert.alert("약 이름을 입력해 주세요.");
+      return;
+    }
+
+    if (Object.values(day).indexOf(true) === -1) {
+      Alert.alert("최소 하나의 요일을 선택해 주세요.");
       return;
     }
 
@@ -44,15 +50,16 @@ const AlarmScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>알람 설정</Text>
+      <Text style={styles.title}>{ALARM_TITLE}</Text>
       <View style={styles.elevation}>
         <View style={styles.category}>
           <Text style={styles.categoryTitle}>약 이름</Text>
           <TextInput
             style={styles.textInput}
-            placeholder="약의 이름을 입력해주세요"
+            placeholder={ALARM_PLACE_HOLDER}
             onChangeText={text => setDrugName(text)}
             underlineColorAndroid={SUB_COLOR_1}
+            placeholderTextColor={SUB_COLOR_1}
           />
         </View>
         <View style={styles.dateContainer}>
@@ -201,7 +208,7 @@ const styles = StyleSheet.create({
     width: "60%",
     fontFamily: "Dongle-Regular",
     color: SUB_COLOR_1,
-    fontSize: 40,
+    fontSize: 30,
   },
   dateContainer: {
     flex: 3,

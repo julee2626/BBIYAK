@@ -6,6 +6,13 @@ import {
   SUB_COLOR_2,
   WHITE,
 } from "../constants/styles";
+import {
+  HOME_CAMERA_SEARCH,
+  HOME_CHECK_ALARM,
+  HOME_SET_ALARM,
+  HOME_TITLE,
+  HOME_TYPE_SEARCH,
+} from "../constants/texts";
 
 const HomeScreen = ({ navigation }) => {
   return (
@@ -15,14 +22,14 @@ const HomeScreen = ({ navigation }) => {
           style={styles.logo}
           source={require("../assets/images/chick_1.png")}
         />
-        <Text style={styles.title}>BBIYAK</Text>
+        <Text style={styles.title}>{HOME_TITLE}</Text>
         <View>
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
               navigation.navigate("Camera");
             }}>
-            <Text style={styles.buttonTitle}>사진으로 검색</Text>
+            <Text style={styles.buttonTitle}>{HOME_CAMERA_SEARCH}</Text>
           </TouchableOpacity>
         </View>
         <View>
@@ -31,7 +38,7 @@ const HomeScreen = ({ navigation }) => {
             onPress={() => {
               navigation.navigate("SearchDrug");
             }}>
-            <Text style={styles.buttonTitle}>직접 검색</Text>
+            <Text style={styles.buttonTitle}>{HOME_TYPE_SEARCH}</Text>
           </TouchableOpacity>
         </View>
         <View>
@@ -40,7 +47,7 @@ const HomeScreen = ({ navigation }) => {
             onPress={() => {
               navigation.navigate("Alarm");
             }}>
-            <Text style={styles.buttonTitle}>약 알람 맞추기</Text>
+            <Text style={styles.buttonTitle}>{HOME_SET_ALARM}</Text>
           </TouchableOpacity>
         </View>
         <View>
@@ -49,7 +56,7 @@ const HomeScreen = ({ navigation }) => {
             onPress={() => {
               navigation.navigate("MyAlarm");
             }}>
-            <Text style={styles.buttonTitle}>알람 확인하기</Text>
+            <Text style={styles.buttonTitle}>{HOME_CHECK_ALARM}</Text>
           </TouchableOpacity>
         </View>
       </View>
