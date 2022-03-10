@@ -18,6 +18,11 @@ import {
   SUB_COLOR_4,
   WHITE,
 } from "../constants/styles";
+import {
+  SEARCHDRUG_PLACEHOLDER_LETTER,
+  SEARCHDRUG_PLACEHOLDER_NAME,
+  SEARCHDRUG_TITLE,
+} from "../constants/texts";
 import { formulationData, shapeData, colorData } from "../data/searchData";
 import { searchDrugInfo } from "../features";
 
@@ -56,24 +61,26 @@ const SearchDrugScreen = ({ navigation }) => {
   return (
     <>
       <View style={styles.container}>
-        <Text style={styles.title}>식별 정보 입력</Text>
+        <Text style={styles.title}>{SEARCHDRUG_TITLE}</Text>
         <View style={styles.elevation}>
           <View style={[styles.category, { marginTop: 20 }]}>
             <Text style={styles.categoryTitle}>식별문자</Text>
             <TextInput
               style={styles.textInput}
-              placeholder="식별문자를 입력해주세요"
+              placeholder={SEARCHDRUG_PLACEHOLDER_LETTER}
               onChangeText={text => setIdentificationLetter(text)}
               underlineColorAndroid={SUB_COLOR_1}
+              placeholderTextColor={SUB_COLOR_1}
             />
           </View>
           <View style={styles.category}>
             <Text style={styles.categoryTitle}>제품명</Text>
             <TextInput
               style={styles.textInput}
-              placeholder="제품명을 입력해주세요"
+              placeholder={SEARCHDRUG_PLACEHOLDER_NAME}
               onChangeText={text => setName(text)}
               underlineColorAndroid={SUB_COLOR_1}
+              placeholderTextColor={SUB_COLOR_1}
             />
           </View>
           <View style={styles.category}>
@@ -113,7 +120,8 @@ const SearchDrugScreen = ({ navigation }) => {
         <View style={[styles.category, { marginVertical: 10 }]}>
           <TouchableOpacity
             style={styles.button}
-            onPress={handlePressGetSearchInfo}>
+            onPress={handlePressGetSearchInfo}
+            testID={"Search.Button"}>
             <Text style={styles.buttonTitle}>검색</Text>
           </TouchableOpacity>
         </View>

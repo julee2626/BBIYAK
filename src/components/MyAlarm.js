@@ -16,6 +16,7 @@ import {
   SUB_COLOR_4,
   WHITE,
 } from "../constants/styles";
+import { MYALARM_TITLE } from "../constants/texts";
 
 const MyAlarmScreen = () => {
   const [alarms, setAlarms] = useState([]);
@@ -36,7 +37,7 @@ const MyAlarmScreen = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>MyAlarm</Text>
+      <Text style={styles.title}>{MYALARM_TITLE}</Text>
       {alarms.length ? (
         alarms.map(alarm => (
           <View key={alarm.id} style={styles.alarmContainer}>

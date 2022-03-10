@@ -17,6 +17,7 @@ import {
   SUB_COLOR_4,
   WHITE,
 } from "../constants/styles";
+import { DRUGINFO_TITLE } from "../constants/texts";
 import { searchDrug } from "../utils/search";
 const drugData = require("../data/drugInfo.json");
 const win = Dimensions.get("window");
@@ -65,7 +66,7 @@ const DrugInfoScreen = ({ navigation }) => {
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>검색 결과</Text>
+      <Text style={styles.title}>{DRUGINFO_TITLE}</Text>
       {drugList.length ? (
         <View>
           {drugList.map(drug => (
@@ -108,22 +109,6 @@ const DrugInfoScreen = ({ navigation }) => {
               </View>
             </View>
           ))}
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                navigation.navigate("Home");
-              }}>
-              <Text style={styles.buttonTitle}>홈으로</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                navigation.navigate("Alarm");
-              }}>
-              <Text style={styles.buttonTitle}>알람 맞추기</Text>
-            </TouchableOpacity>
-          </View>
         </View>
       ) : (
         <View style={styles.sub}>
@@ -132,6 +117,22 @@ const DrugInfoScreen = ({ navigation }) => {
           <Text style={styles.subText}>없습니다</Text>
         </View>
       )}
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            navigation.navigate("Home");
+          }}>
+          <Text style={styles.buttonTitle}>홈으로</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            navigation.navigate("Alarm");
+          }}>
+          <Text style={styles.buttonTitle}>알람 맞추기</Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 };
