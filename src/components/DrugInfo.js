@@ -45,6 +45,49 @@ const DrugInfoScreen = ({ navigation }) => {
 
           if (collectedDrug) {
             collectedDrug.큰제품이미지 = identifiedDrug[i].큰제품이미지;
+            collectedDrug.elderCaution = false;
+            collectedDrug.pregnancyCaution = false;
+            collectedDrug.babyCaution = false;
+
+            if (
+              collectedDrug["이 약의 사용상 주의사항은 무엇입니까?"].includes(
+                "노인",
+              ) ||
+              collectedDrug["이 약의 사용상 주의사항은 무엇입니까?"].includes(
+                "고령자",
+              )
+            ) {
+              collectedDrug.elderCaution = true;
+            }
+
+            if (
+              collectedDrug["이 약의 사용상 주의사항은 무엇입니까?"].includes(
+                "임부",
+              )
+            ) {
+              collectedDrug.pregnancyCaution = true;
+            }
+
+            if (
+              collectedDrug["이 약의 사용상 주의사항은 무엇입니까?"].includes(
+                "2세미만",
+              )
+            ) {
+              collectedDrug.babyCaution = 2;
+            } else if (
+              collectedDrug["이 약의 사용상 주의사항은 무엇입니까?"].includes(
+                "7세미만",
+              )
+            ) {
+              collectedDrug.babyCaution = 7;
+            } else if (
+              collectedDrug["이 약의 사용상 주의사항은 무엇입니까?"].includes(
+                "15세미만",
+              )
+            ) {
+              collectedDrug.babyCaution = 15;
+            }
+
             finalData.push(collectedDrug);
           }
         }
@@ -73,6 +116,17 @@ const DrugInfoScreen = ({ navigation }) => {
             <View key={drug.품목일련번호} style={styles.elevation}>
               <View style={styles.category}>
                 <Text style={styles.categoryTitle}>{drug.제품명}</Text>
+              </View>
+              <View style={styles.cautionView}>
+                {drug.pregnancyCaution && (
+                  <Text style={styles.caution}>임산부</Text>
+                )}
+                {drug.elderCaution && (
+                  <Text style={styles.caution}>고령자</Text>
+                )}
+                {drug.babyCaution && (
+                  <Text style={styles.caution}>{drug.babyCaution}세이하</Text>
+                )}
               </View>
               <Image
                 style={styles.drugImage}
@@ -169,6 +223,16 @@ const styles = StyleSheet.create({
     fontFamily: "Dongle-Bold",
     fontSize: 40,
     color: SUB_COLOR_2,
+  },
+  cautionView: {
+    width: "95%",
+    flexDirection: "row-reverse",
+  },
+  caution: {
+    marginRight: 5,
+    fontFamily: "Dongle-Bold",
+    fontSize: 30,
+    color: SUB_COLOR_4,
   },
   categoryContent: {
     width: "90%",
