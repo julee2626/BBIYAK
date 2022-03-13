@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -33,10 +33,6 @@ const AlarmScreen = ({ navigation }) => {
     SUN: false,
   });
   const [drugName, setDrugName] = useState("");
-
-  useEffect(() => {
-    setDrugName("");
-  }, []);
 
   const handlePressSetNotification = () => {
     if (drugName === "" || drugName === null) {
