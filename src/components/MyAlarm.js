@@ -17,8 +17,9 @@ import {
   WHITE,
 } from "../constants/styles";
 import { MYALARM_TITLE } from "../constants/texts";
+import NavigationFooter from "./NavigatorFooter";
 
-const MyAlarmScreen = () => {
+const MyAlarmScreen = ({ navigation }) => {
   const [alarms, setAlarms] = useState([]);
   const [alarmNumber, setAlarmNumber] = useState(alarms.length);
 
@@ -36,89 +37,94 @@ const MyAlarmScreen = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.title}>{MYALARM_TITLE}</Text>
-      {alarms.length ? (
-        alarms.map(alarm => (
-          <View key={alarm.id} style={styles.alarmContainer}>
-            <View style={styles.timeContainer}>
-              <Text style={styles.alarmTime}>
-                {("0" + alarm.date.getHours()).slice(-2)} :{" "}
-                {("0" + alarm.date.getMinutes()).slice(-2)}
-              </Text>
-              <TouchableOpacity
-                style={styles.delete}
-                onPress={() => handlePressDeleteAlarm(alarm.id)}>
-                <Text style={styles.deleteText}>Delete</Text>
-              </TouchableOpacity>
+    <>
+      <ScrollView style={styles.container}>
+        <Text style={styles.title}>{MYALARM_TITLE}</Text>
+        {alarms.length ? (
+          alarms.map(alarm => (
+            <View key={alarm.id} style={styles.alarmContainer}>
+              <View style={styles.timeContainer}>
+                <Text style={styles.alarmTime}>
+                  {("0" + alarm.date.getHours()).slice(-2)} :{" "}
+                  {("0" + alarm.date.getMinutes()).slice(-2)}
+                </Text>
+                <TouchableOpacity
+                  style={styles.delete}
+                  onPress={() => handlePressDeleteAlarm(alarm.id)}>
+                  <Text style={styles.deleteText}>Delete</Text>
+                </TouchableOpacity>
+              </View>
+              <Text style={styles.drugName}>{alarm.message.split(" ")[1]}</Text>
+              <View style={styles.dayContainer}>
+                <View
+                  style={
+                    alarm.data.MON
+                      ? [styles.dayButton, { backgroundColor: SUB_COLOR_2 }]
+                      : [styles.dayButton, { backgroundColor: MAIN_COLOR_2 }]
+                  }>
+                  <Text style={styles.dayText}>M</Text>
+                </View>
+                <View
+                  style={
+                    alarm.data.TUE
+                      ? [styles.dayButton, { backgroundColor: SUB_COLOR_2 }]
+                      : [styles.dayButton, { backgroundColor: MAIN_COLOR_2 }]
+                  }>
+                  <Text style={styles.dayText}>T</Text>
+                </View>
+                <View
+                  style={
+                    alarm.data.WED
+                      ? [styles.dayButton, { backgroundColor: SUB_COLOR_2 }]
+                      : [styles.dayButton, { backgroundColor: MAIN_COLOR_2 }]
+                  }>
+                  <Text style={styles.dayText}>W</Text>
+                </View>
+                <View
+                  style={
+                    alarm.data.THU
+                      ? [styles.dayButton, { backgroundColor: SUB_COLOR_2 }]
+                      : [styles.dayButton, { backgroundColor: MAIN_COLOR_2 }]
+                  }>
+                  <Text style={styles.dayText}>T</Text>
+                </View>
+                <View
+                  style={
+                    alarm.data.FRI
+                      ? [styles.dayButton, { backgroundColor: SUB_COLOR_2 }]
+                      : [styles.dayButton, { backgroundColor: MAIN_COLOR_2 }]
+                  }>
+                  <Text style={styles.dayText}>F</Text>
+                </View>
+                <View
+                  style={
+                    alarm.data.SAT
+                      ? [styles.dayButton, { backgroundColor: SUB_COLOR_2 }]
+                      : [styles.dayButton, { backgroundColor: MAIN_COLOR_2 }]
+                  }>
+                  <Text style={styles.dayText}>S</Text>
+                </View>
+                <View
+                  style={
+                    alarm.data.SUN
+                      ? [styles.dayButton, { backgroundColor: SUB_COLOR_2 }]
+                      : [styles.dayButton, { backgroundColor: MAIN_COLOR_2 }]
+                  }>
+                  <Text style={styles.dayText}>S</Text>
+                </View>
+              </View>
             </View>
-            <Text style={styles.drugName}>{alarm.message.split(" ")[1]}</Text>
-            <View style={styles.dayContainer}>
-              <View
-                style={
-                  alarm.data.MON
-                    ? [styles.dayButton, { backgroundColor: SUB_COLOR_2 }]
-                    : [styles.dayButton, { backgroundColor: MAIN_COLOR_2 }]
-                }>
-                <Text style={styles.dayText}>M</Text>
-              </View>
-              <View
-                style={
-                  alarm.data.TUE
-                    ? [styles.dayButton, { backgroundColor: SUB_COLOR_2 }]
-                    : [styles.dayButton, { backgroundColor: MAIN_COLOR_2 }]
-                }>
-                <Text style={styles.dayText}>T</Text>
-              </View>
-              <View
-                style={
-                  alarm.data.WED
-                    ? [styles.dayButton, { backgroundColor: SUB_COLOR_2 }]
-                    : [styles.dayButton, { backgroundColor: MAIN_COLOR_2 }]
-                }>
-                <Text style={styles.dayText}>W</Text>
-              </View>
-              <View
-                style={
-                  alarm.data.THU
-                    ? [styles.dayButton, { backgroundColor: SUB_COLOR_2 }]
-                    : [styles.dayButton, { backgroundColor: MAIN_COLOR_2 }]
-                }>
-                <Text style={styles.dayText}>T</Text>
-              </View>
-              <View
-                style={
-                  alarm.data.FRI
-                    ? [styles.dayButton, { backgroundColor: SUB_COLOR_2 }]
-                    : [styles.dayButton, { backgroundColor: MAIN_COLOR_2 }]
-                }>
-                <Text style={styles.dayText}>F</Text>
-              </View>
-              <View
-                style={
-                  alarm.data.SAT
-                    ? [styles.dayButton, { backgroundColor: SUB_COLOR_2 }]
-                    : [styles.dayButton, { backgroundColor: MAIN_COLOR_2 }]
-                }>
-                <Text style={styles.dayText}>S</Text>
-              </View>
-              <View
-                style={
-                  alarm.data.SUN
-                    ? [styles.dayButton, { backgroundColor: SUB_COLOR_2 }]
-                    : [styles.dayButton, { backgroundColor: MAIN_COLOR_2 }]
-                }>
-                <Text style={styles.dayText}>S</Text>
-              </View>
-            </View>
+          ))
+        ) : (
+          <View style={styles.noAlarm}>
+            <Text style={styles.noAlarmText}>
+              {"   알람을 \n등록해 주세요"}
+            </Text>
           </View>
-        ))
-      ) : (
-        <View style={styles.noAlarm}>
-          <Text style={styles.noAlarmText}>{"   알람을 \n등록해 주세요"}</Text>
-        </View>
-      )}
-    </ScrollView>
+        )}
+      </ScrollView>
+      <NavigationFooter navigation={navigation} onScreen="MyAlarm" />
+    </>
   );
 };
 
@@ -127,7 +133,7 @@ const styles = StyleSheet.create({
     backgroundColor: MAIN_COLOR_1,
   },
   title: {
-    marginVertical: 20,
+    marginVertical: 10,
     color: SUB_COLOR_2,
     fontFamily: "Dongle-Bold",
     fontSize: 50,

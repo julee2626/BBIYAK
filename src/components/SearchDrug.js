@@ -25,6 +25,7 @@ import {
 } from "../constants/texts";
 import { formulationData, shapeData, colorData } from "../data/searchData";
 import { searchDrugInfo } from "../features";
+import NavigationFooter from "./NavigatorFooter";
 
 const SearchDrugScreen = ({ navigation }) => {
   const [identificationLetter, setIdentificationLetter] = useState(null);
@@ -63,7 +64,7 @@ const SearchDrugScreen = ({ navigation }) => {
       <View style={styles.container}>
         <Text style={styles.title}>{SEARCHDRUG_TITLE}</Text>
         <View style={styles.elevation}>
-          <View style={[styles.category, { marginTop: 20 }]}>
+          <View style={styles.category}>
             <Text style={styles.categoryTitle}>식별문자</Text>
             <TextInput
               style={styles.textInput}
@@ -105,7 +106,7 @@ const SearchDrugScreen = ({ navigation }) => {
               rowTextStyle={styles.selectText}
             />
           </View>
-          <View style={[styles.category, { marginBottom: 20 }]}>
+          <View style={styles.category}>
             <Text style={styles.categoryTitle}>색상</Text>
             <SelectDropdown
               data={colorData}
@@ -116,28 +117,29 @@ const SearchDrugScreen = ({ navigation }) => {
               rowTextStyle={styles.selectText}
             />
           </View>
-        </View>
-        <View style={[styles.category, { marginVertical: 10 }]}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={handlePressGetSearchInfo}
-            testID={"Search.Button"}>
-            <Text style={styles.buttonTitle}>검색</Text>
-          </TouchableOpacity>
+          <View style={styles.category}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={handlePressGetSearchInfo}
+              testID={"Search.Button"}>
+              <Text style={styles.buttonTitle}>검색</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
+      <NavigationFooter navigation={navigation} onScreen="SearchDrug" />
     </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    height: "100%",
+    height: "93%",
     alignItems: "center",
     backgroundColor: MAIN_COLOR_1,
   },
   title: {
-    marginVertical: 20,
+    marginVertical: 10,
     color: SUB_COLOR_2,
     fontFamily: "Dongle-Bold",
     fontSize: 50,
@@ -149,6 +151,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 3,
     backgroundColor: WHITE,
+    marginBottom: "3%",
   },
   category: {
     flex: 1,
@@ -182,7 +185,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: "30%",
-    height: "80%",
+    height: "50%",
     backgroundColor: SUB_COLOR_4,
     borderRadius: 10,
     elevation: 3,
