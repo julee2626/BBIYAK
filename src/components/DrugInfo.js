@@ -6,7 +6,6 @@ import {
   Image,
   ScrollView,
   Dimensions,
-  TouchableOpacity,
 } from "react-native";
 import { useSelector } from "react-redux";
 
@@ -19,6 +18,7 @@ import {
 } from "../constants/styles";
 import { DRUGINFO_TITLE } from "../constants/texts";
 import { searchDrug } from "../utils/search";
+import NavigationFooter from "./NavigatorFooter";
 const drugData = require("../data/drugInfo.json");
 const win = Dimensions.get("window");
 
@@ -108,70 +108,76 @@ const DrugInfoScreen = ({ navigation }) => {
     );
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.title}>{DRUGINFO_TITLE}</Text>
-      {drugList.length ? (
-        <View>
-          {drugList.map(drug => (
-            <View key={drug.품목일련번호} style={styles.elevation}>
-              <View style={styles.category}>
-                <Text style={styles.categoryTitle}>{drug.제품명}</Text>
+    <>
+      <ScrollView style={styles.container}>
+        <Text style={styles.title}>{DRUGINFO_TITLE}</Text>
+        {drugList.length ? (
+          <View>
+            {drugList.map(drug => (
+              <View key={drug.품목일련번호} style={styles.elevation}>
+                <View style={styles.category}>
+                  <Text style={styles.categoryTitle}>{drug.제품명}</Text>
+                </View>
+                <View style={styles.cautionView}>
+                  {drug.pregnancyCaution && (
+                    <Text style={styles.caution}>임산부</Text>
+                  )}
+                  {drug.elderCaution && (
+                    <Text style={styles.caution}>고령자</Text>
+                  )}
+                  {drug.babyCaution && (
+                    <Text style={styles.caution}>{drug.babyCaution}세이하</Text>
+                  )}
+                  {(drug.babyCaution ||
+                    drug.pregnancyCaution ||
+                    drug.elderCaution) && (
+                    <Text style={styles.caution}>주의!</Text>
+                  )}
+                </View>
+                <Image
+                  style={styles.drugImage}
+                  source={{
+                    uri: drug.큰제품이미지,
+                  }}
+                />
+                <View style={styles.category}>
+                  <Text style={styles.categoryTitle}>{drug.업체명}</Text>
+                </View>
+                <View style={styles.category}>
+                  <Text style={styles.categoryTitle}>효능</Text>
+                  <Text style={styles.categoryContent}>
+                    {drug["이 약의 효능은 무엇입니까?"]}
+                  </Text>
+                </View>
+                <View style={styles.category}>
+                  <Text style={styles.categoryTitle}>사용법</Text>
+                  <Text style={styles.categoryContent}>
+                    {drug["이 약은 어떻게 사용합니까?"]}
+                  </Text>
+                </View>
+                <View style={styles.category}>
+                  <Text style={styles.categoryTitle}>주의사항</Text>
+                  <Text style={styles.categoryContent}>
+                    {drug["이 약의 사용상 주의사항은 무엇입니까?"]}
+                  </Text>
+                </View>
+                <View style={[styles.category, { marginBottom: 20 }]}>
+                  <Text style={styles.categoryTitle}>보관방법</Text>
+                  <Text style={styles.categoryContent}>
+                    {drug["이 약은 어떻게 보관해야 합니까?"]}
+                  </Text>
+                </View>
               </View>
-              <View style={styles.cautionView}>
-                {drug.pregnancyCaution && (
-                  <Text style={styles.caution}>임산부</Text>
-                )}
-                {drug.elderCaution && (
-                  <Text style={styles.caution}>고령자</Text>
-                )}
-                {drug.babyCaution && (
-                  <Text style={styles.caution}>{drug.babyCaution}세이하</Text>
-                )}
-              </View>
-              <Image
-                style={styles.drugImage}
-                source={{
-                  uri: drug.큰제품이미지,
-                }}
-              />
-              <View style={styles.category}>
-                <Text style={styles.categoryTitle}>{drug.업체명}</Text>
-              </View>
-              <View style={styles.category}>
-                <Text style={styles.categoryTitle}>효능</Text>
-                <Text style={styles.categoryContent}>
-                  {drug["이 약의 효능은 무엇입니까?"]}
-                </Text>
-              </View>
-              <View style={styles.category}>
-                <Text style={styles.categoryTitle}>사용법</Text>
-                <Text style={styles.categoryContent}>
-                  {drug["이 약은 어떻게 사용합니까?"]}
-                </Text>
-              </View>
-              <View style={styles.category}>
-                <Text style={styles.categoryTitle}>주의사항</Text>
-                <Text style={styles.categoryContent}>
-                  {drug["이 약의 사용상 주의사항은 무엇입니까?"]}
-                </Text>
-              </View>
-              <View style={[styles.category, { marginBottom: 20 }]}>
-                <Text style={styles.categoryTitle}>보관방법</Text>
-                <Text style={styles.categoryContent}>
-                  {drug["이 약은 어떻게 보관해야 합니까?"]}
-                </Text>
-              </View>
-            </View>
-          ))}
-        </View>
-      ) : (
-        <View style={styles.sub}>
-          <Text style={styles.subText}>검색내용에</Text>
-          <Text style={styles.subText}>해당하는 약이</Text>
-          <Text style={styles.subText}>없습니다</Text>
-        </View>
-      )}
-      <View style={styles.buttonContainer}>
+            ))}
+          </View>
+        ) : (
+          <View style={styles.sub}>
+            <Text style={styles.subText}>검색내용에</Text>
+            <Text style={styles.subText}>해당하는 약이</Text>
+            <Text style={styles.subText}>없습니다</Text>
+          </View>
+        )}
+        {/* <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
@@ -186,8 +192,10 @@ const DrugInfoScreen = ({ navigation }) => {
           }}>
           <Text style={styles.buttonTitle}>알람 맞추기</Text>
         </TouchableOpacity>
-      </View>
-    </ScrollView>
+      </View> */}
+      </ScrollView>
+      <NavigationFooter navigation={navigation} />
+    </>
   );
 };
 
@@ -196,7 +204,7 @@ const styles = StyleSheet.create({
     backgroundColor: MAIN_COLOR_1,
   },
   title: {
-    marginVertical: 20,
+    marginVertical: 10,
     color: SUB_COLOR_2,
     fontFamily: "Dongle-Bold",
     fontSize: 50,

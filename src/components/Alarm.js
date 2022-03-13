@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -19,6 +19,7 @@ import {
   WHITE,
 } from "../constants/styles";
 import { ALARM_PLACE_HOLDER, ALARM_TITLE } from "../constants/texts";
+import NavigationFooter from "./NavigatorFooter";
 
 const AlarmScreen = ({ navigation }) => {
   const [date, setDate] = useState(new Date());
@@ -33,6 +34,10 @@ const AlarmScreen = ({ navigation }) => {
   });
   const [drugName, setDrugName] = useState("");
 
+  useEffect(() => {
+    setDrugName("");
+  }, []);
+
   const handlePressSetNotification = () => {
     if (drugName === "" || drugName === null) {
       Alert.alert("약 이름을 입력해 주세요.");
@@ -45,137 +50,140 @@ const AlarmScreen = ({ navigation }) => {
     }
 
     Notifications.scheduleNotification(date, day, drugName);
-    navigation.navigate("Home");
+    navigation.navigate("MyAlarm");
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{ALARM_TITLE}</Text>
-      <View style={styles.elevation}>
-        <View style={styles.category}>
-          <Text style={styles.categoryTitle}>약 이름</Text>
-          <TextInput
-            style={styles.textInput}
-            placeholder={ALARM_PLACE_HOLDER}
-            onChangeText={text => setDrugName(text)}
-            underlineColorAndroid={SUB_COLOR_1}
-            placeholderTextColor={SUB_COLOR_1}
-          />
-        </View>
-        <View style={styles.dateContainer}>
-          <DatePicker
-            date={date}
-            onDateChange={setDate}
-            minimumDate={new Date()}
-            androidVariant="nativeAndroid"
-            minuteInterval={10}
-            textColor={SUB_COLOR_2}
-          />
-        </View>
-        <View style={styles.dayContainer}>
-          <View style={styles.daySubContainer}>
-            <TouchableOpacity
-              style={
-                day.MON
-                  ? [styles.dayButton, { backgroundColor: SUB_COLOR_2 }]
-                  : [styles.dayButton, { backgroundColor: MAIN_COLOR_2 }]
-              }
-              onPress={() => {
-                setDay({ ...day, MON: !day.MON });
-              }}>
-              <Text style={styles.dayText}>M</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={
-                day.WED
-                  ? [styles.dayButton, { backgroundColor: SUB_COLOR_2 }]
-                  : [styles.dayButton, { backgroundColor: MAIN_COLOR_2 }]
-              }
-              onPress={() => {
-                setDay({ ...day, WED: !day.WED });
-              }}>
-              <Text style={styles.dayText}>W</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={
-                day.FRI
-                  ? [styles.dayButton, { backgroundColor: SUB_COLOR_2 }]
-                  : [styles.dayButton, { backgroundColor: MAIN_COLOR_2 }]
-              }
-              onPress={() => {
-                setDay({ ...day, FRI: !day.FRI });
-              }}>
-              <Text style={styles.dayText}>F</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={
-                day.SUN
-                  ? [styles.dayButton, { backgroundColor: SUB_COLOR_2 }]
-                  : [styles.dayButton, { backgroundColor: MAIN_COLOR_2 }]
-              }
-              onPress={() => {
-                setDay({ ...day, SUN: !day.SUN });
-              }}>
-              <Text style={styles.dayText}>S</Text>
-            </TouchableOpacity>
+    <>
+      <View style={styles.container}>
+        <Text style={styles.title}>{ALARM_TITLE}</Text>
+        <View style={styles.elevation}>
+          <View style={styles.category}>
+            <Text style={styles.categoryTitle}>약 이름</Text>
+            <TextInput
+              style={styles.textInput}
+              placeholder={ALARM_PLACE_HOLDER}
+              onChangeText={text => setDrugName(text)}
+              underlineColorAndroid={SUB_COLOR_1}
+              placeholderTextColor={SUB_COLOR_1}
+            />
           </View>
-          <View style={styles.daySubContainer}>
-            <TouchableOpacity
-              style={
-                day.TUE
-                  ? [styles.dayButton, { backgroundColor: SUB_COLOR_2 }]
-                  : [styles.dayButton, { backgroundColor: MAIN_COLOR_2 }]
-              }
-              onPress={() => {
-                setDay({ ...day, TUE: !day.TUE });
-              }}>
-              <Text style={styles.dayText}>T</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={
-                day.THU
-                  ? [styles.dayButton, { backgroundColor: SUB_COLOR_2 }]
-                  : [styles.dayButton, { backgroundColor: MAIN_COLOR_2 }]
-              }
-              onPress={() => {
-                setDay({ ...day, THU: !day.THU });
-              }}>
-              <Text style={styles.dayText}>T</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={
-                day.SAT
-                  ? [styles.dayButton, { backgroundColor: SUB_COLOR_2 }]
-                  : [styles.dayButton, { backgroundColor: MAIN_COLOR_2 }]
-              }
-              onPress={() => {
-                setDay({ ...day, SAT: !day.SAT });
-              }}>
-              <Text style={styles.dayText}>S</Text>
-            </TouchableOpacity>
+          <View style={styles.dateContainer}>
+            <Text style={styles.categoryTitleColumn}>시작 날짜</Text>
+            <DatePicker
+              date={date}
+              onDateChange={setDate}
+              minimumDate={new Date()}
+              androidVariant="nativeAndroid"
+              minuteInterval={10}
+              textColor={SUB_COLOR_2}
+            />
           </View>
+          <View style={styles.dayContainer}>
+            <Text style={styles.categoryTitleColumn}>알람 요일</Text>
+            <View style={styles.daySubContainer}>
+              <TouchableOpacity
+                style={
+                  day.MON
+                    ? [styles.dayButton, { backgroundColor: SUB_COLOR_2 }]
+                    : [styles.dayButton, { backgroundColor: MAIN_COLOR_2 }]
+                }
+                onPress={() => {
+                  setDay({ ...day, MON: !day.MON });
+                }}>
+                <Text style={styles.dayText}>월</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={
+                  day.WED
+                    ? [styles.dayButton, { backgroundColor: SUB_COLOR_2 }]
+                    : [styles.dayButton, { backgroundColor: MAIN_COLOR_2 }]
+                }
+                onPress={() => {
+                  setDay({ ...day, WED: !day.WED });
+                }}>
+                <Text style={styles.dayText}>수</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={
+                  day.FRI
+                    ? [styles.dayButton, { backgroundColor: SUB_COLOR_2 }]
+                    : [styles.dayButton, { backgroundColor: MAIN_COLOR_2 }]
+                }
+                onPress={() => {
+                  setDay({ ...day, FRI: !day.FRI });
+                }}>
+                <Text style={styles.dayText}>금</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={
+                  day.SUN
+                    ? [styles.dayButton, { backgroundColor: SUB_COLOR_2 }]
+                    : [styles.dayButton, { backgroundColor: MAIN_COLOR_2 }]
+                }
+                onPress={() => {
+                  setDay({ ...day, SUN: !day.SUN });
+                }}>
+                <Text style={styles.dayText}>일</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.daySubContainer}>
+              <TouchableOpacity
+                style={
+                  day.TUE
+                    ? [styles.dayButton, { backgroundColor: SUB_COLOR_2 }]
+                    : [styles.dayButton, { backgroundColor: MAIN_COLOR_2 }]
+                }
+                onPress={() => {
+                  setDay({ ...day, TUE: !day.TUE });
+                }}>
+                <Text style={styles.dayText}>화</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={
+                  day.THU
+                    ? [styles.dayButton, { backgroundColor: SUB_COLOR_2 }]
+                    : [styles.dayButton, { backgroundColor: MAIN_COLOR_2 }]
+                }
+                onPress={() => {
+                  setDay({ ...day, THU: !day.THU });
+                }}>
+                <Text style={styles.dayText}>목</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={
+                  day.SAT
+                    ? [styles.dayButton, { backgroundColor: SUB_COLOR_2 }]
+                    : [styles.dayButton, { backgroundColor: MAIN_COLOR_2 }]
+                }
+                onPress={() => {
+                  setDay({ ...day, SAT: !day.SAT });
+                }}>
+                <Text style={styles.dayText}>토</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={handlePressSetNotification}>
+            <Text style={styles.buttonTitle}>알람 맞추기</Text>
+          </TouchableOpacity>
         </View>
       </View>
-      <View style={[styles.category, { marginVertical: 10 }]}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={handlePressSetNotification}>
-          <Text style={styles.buttonTitle}>알람 맞추기</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+      <NavigationFooter navigation={navigation} onScreen="Alarm" />
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    height: "100%",
+    height: "93%",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: MAIN_COLOR_1,
   },
   title: {
-    marginVertical: 20,
+    marginVertical: 10,
     color: SUB_COLOR_2,
     fontFamily: "Dongle-Bold",
     fontSize: 50,
@@ -188,10 +196,12 @@ const styles = StyleSheet.create({
     elevation: 3,
     backgroundColor: WHITE,
     alignItems: "center",
+    marginBottom: "3%",
   },
   category: {
     flex: 1,
     flexDirection: "row",
+    marginTop: 10,
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
@@ -201,7 +211,7 @@ const styles = StyleSheet.create({
     marginRight: "8%",
     textAlign: "center",
     fontFamily: "Dongle-Bold",
-    fontSize: 40,
+    fontSize: 35,
     color: SUB_COLOR_2,
   },
   textInput: {
@@ -211,11 +221,20 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   dateContainer: {
-    flex: 3,
+    flex: 4,
     justifyContent: "center",
+    flexDirection: "column",
+  },
+  categoryTitleColumn: {
+    width: "100%",
+    textAlign: "left",
+    fontFamily: "Dongle-Bold",
+    fontSize: 35,
+    color: SUB_COLOR_2,
+    marginTop: 20,
   },
   dayContainer: {
-    flex: 2,
+    flex: 4,
     width: "90%",
     alignItems: "center",
   },
@@ -223,13 +242,14 @@ const styles = StyleSheet.create({
     width: "90%",
     flexDirection: "row",
     justifyContent: "center",
+    marginTop: 5,
   },
   dayButton: {
-    width: 65,
-    height: 65,
-    borderRadius: 25,
-    marginVertical: 5,
-    marginHorizontal: 5,
+    width: 55,
+    height: 55,
+    borderRadius: 20,
+    marginTop: 5,
+    marginHorizontal: 12,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -240,12 +260,13 @@ const styles = StyleSheet.create({
   },
   button: {
     width: "40%",
-    height: "80%",
-    backgroundColor: SUB_COLOR_4,
+    height: "10%",
+    marginBottom: "5%",
     borderRadius: 10,
-    elevation: 3,
+    elevation: 5,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: SUB_COLOR_4,
   },
   buttonTitle: {
     fontFamily: "Dongle-Bold",
