@@ -26,13 +26,14 @@ const styles = StyleSheet.create({
     backgroundColor: MAIN_COLOR_1,
   },
   title: {
+    marginTop: 30,
     fontFamily: "Dongle-Bold",
     color: SUB_COLOR_4,
     fontSize: 150,
     textAlign: "center",
   },
   logo: {
-    marginTop: 100,
+    marginTop: 180,
     marginBottom: 50,
     width: 200,
     height: 200,
