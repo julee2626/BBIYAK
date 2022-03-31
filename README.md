@@ -20,7 +20,7 @@ BBIYAK에게 부탁해 보세요!
 
 ## Features
 
-<img width="250" alt="image" src="https://user-images.githubusercontent.com/78010896/161048913-876c5319-e557-4e93-a175-46c8492fd44d.jpg"><img width="250" alt="image" src="https://user-images.githubusercontent.com/78010896/161049169-cead5e54-d4df-4abe-bd89-9db4679e45db.jpg"><img width="250" alt="image" src="https://user-images.githubusercontent.com/78010896/161049079-47bf65c8-bc97-417d-9d2d-3708a4082e69.jpg"><img width="250" alt="image" src="https://user-images.githubusercontent.com/78010896/161049448-1db8ff14-a1f6-43bb-9255-dba1526aa026.jpg">
+<img width="200" alt="image" src="https://user-images.githubusercontent.com/78010896/161048913-876c5319-e557-4e93-a175-46c8492fd44d.jpg"><img width="200" alt="image" src="https://user-images.githubusercontent.com/78010896/161049169-cead5e54-d4df-4abe-bd89-9db4679e45db.jpg"><img width="200" alt="image" src="https://user-images.githubusercontent.com/78010896/161049079-47bf65c8-bc97-417d-9d2d-3708a4082e69.jpg"><img width="200" alt="image" src="https://user-images.githubusercontent.com/78010896/161049448-1db8ff14-a1f6-43bb-9255-dba1526aa026.jpg">
 
  📌 약의 사진을 찍어 약을 검색할 수 있습니다.
 
